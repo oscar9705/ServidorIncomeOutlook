@@ -15,7 +15,7 @@ definitions:
               - node # See https://confluence.atlassian.com/bitbucket/caching-dependencies-895552876.html
               - sonar
               script:
-              - ************************** # Build your project and run
+
               - pipe: sonarsource/sonarcloud-scan:1.0.1
       - step: &check-quality-gate-sonarcloud
               name: Check the Quality Gate on SonarCloud
