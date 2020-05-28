@@ -21,7 +21,7 @@ definitions:
               name: Check the Quality Gate on SonarCloud
               script:
               - npm install --quiet
-              - npm run test -- --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+              - npm run test -- --code-coverage
               - pipe: sonarsource/sonarcloud-quality-gate:0.1.3
 
 pipelines:                 #More info here: https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html
@@ -29,8 +29,6 @@ pipelines:                 #More info here: https://confluence.atlassian.com/bit
   branches:
     master:
       - step: *build-test-sonarcloud
-      - step: *check-quality-gate-sonarcloud
   pull-requests:
     '**':
       - step: *build-test-sonarcloud
-      - step: *check-quality-gate-sonarcloud
