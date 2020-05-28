@@ -1,0 +1,66 @@
+<h1>Registro</h1>
+  <form (ngSubmit)="registrarIngreso( f )"
+  #f= "ngForm">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <mat-form-field class="example-full-width">
+            <mat-label>Valor</mat-label>
+            <input matInput [formControl]="valorFormControl" [errorStateMatcher]="matcher"  
+            min="100"
+            step="100"
+            [(ngModel)]="ingreso.valor"
+            type="number"
+            name ="valor"
+            placeholder="$100">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="valorFormControl.hasError('required')">
+              El valor es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripcion</mat-label>
+            <input matInput
+            [(ngModel)]="ingreso.descripcion"
+            name="descripcion"
+            [formControl]="descripcionFormControl" [errorStateMatcher]="matcher">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="descripcionFormControl.hasError('required') ">
+                La descripcion es obligatoria
+              </mat-error>
+              <mat-error *ngIf="!descripcionFormControl.hasError('required') ">
+                Ingrese una descripcion por favor
+              </mat-error>
+            <mat-error *ngIf="!descripcionFormControl.hasError('mingLength') "> 
+                La descripcion debe tener minimo 8 caracteres
+            </mat-error>
+          </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field class="example-full-width">
+          <mat-label>Fecha</mat-label>
+          <input matInput
+            [(ngModel)]="ingreso.fecha"            
+            name ="fecha"         
+            [matDatepicker]="cfecha">
+            <mat-datepicker-toggle matSuffix [for]="cfecha"></mat-datepicker-toggle>
+            <mat-datepicker #cfecha></mat-datepicker>
+        </mat-form-field>               
+      </div>
+      
+      <div class="form-group col-md-6">
+        <mat-form-field class="example-full-width">
+          <mat-label>Categoria</mat-label>
+            <mat-select [(ngModel)]="ingreso.categoria_id" name="categoria">
+                <mat-option  *ngFor="let categoria of categorias" [value]="categoria.id">
+                    {{categoria.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <button type="submit" mat-flat-button color="black"[disabled]="onHide()" >Guardar</button>
+  </form>

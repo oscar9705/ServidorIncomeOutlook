@@ -1,0 +1,19 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" >  
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput  type="email" [errorStateMatcher]="matcher"
+              formControlName="email" placeholder="ejemplo@ejemplo.com" name="email">
+              <mat-error *ngIf="!formulario.hasError('email')">
+                por favor, ingresar un email valido
+              </mat-error>
+              <mat-error *ngIf="formulario.hasError('required')">
+                el email es <strong>obligatorio</strong>
+              </mat-error>
+              
+            </mat-form-field>
+        </div>
+    </div>
+    <button type="submit" mat-flat-button color="black" [disabled]="!formulario.valid" >Enviar</button>
+</form>

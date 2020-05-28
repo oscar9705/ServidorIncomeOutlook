@@ -1,0 +1,72 @@
+<div class="login-reg-panel">
+    <div class="login-info-box">
+        <h2>¿Ya tienes cuenta?</h2>
+        <label id="label-register" for="log-reg-show">Login</label>
+        <input type="radio" name="active-log-panel" id="log-reg-show" checked="checked">
+    </div>
+
+    <div class="register-info-box">
+        <h2>¿No tienes una cuenta?</h2>
+        <label id="label-login" for="log-login-show">Registrar</label>
+        <input type="radio" name="active-log-panel" id="log-login-show">
+    </div>
+
+    <div class="white-panel">
+        <div class="login-show">
+            <h2>Inicio de sesión</h2>
+            <form (ngSubmit)="loginUser(f)"
+            #f=ngForm>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                    [(ngModel)]="usuario.email"
+                    name ="email"
+                    placeholder="ejemplo@ejemplo.com">
+                    <mat-hint></mat-hint>                  
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                      El email es <strong>obligatorio</strong>
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                      Por favor, ingresar el email
+                    </mat-error>
+                  </mat-form-field>
+
+              </div>
+
+              <div class="form-group col-md-6">
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Ingrese la contraseña</mat-label>
+                    <input matInput [type]="hide ? 'text' : 'password'" 
+                    [(ngModel)]="usuario.password"
+                    name ="password"
+                    [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+                    <mat-hint></mat-hint>
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    <mat-error *ngIf="!passwordFormControl.hasError('required') ">
+                        Por favor ingresa la contraseña
+                      </mat-error>
+                      <mat-error *ngIf="passwordFormControl.hasError('required')">
+                        La contraseña es <strong>obligatoria</strong>
+                      </mat-error>
+                      <mat-error *ngIf="!passwordFormControl.hasError('mingLength') "> 
+                        La contraseña debe tener más de 8 caracteres
+                    </mat-error>                      
+                  </mat-form-field>
+              </div>
+
+            </div>
+
+            <button class="btn btn-primary" type="submit" >Login</button>
+            <br/>
+            <a [routerLink]="['/recuperar']">¿Se te olvidó tu contraseña?</a>
+        </form>
+        </div>
+        <div class="register-show">
+            <app-registrar></app-registrar>
+        </div>
+    </div>
+</div>
