@@ -5,6 +5,9 @@ clone:
 definitions:
       caches:
             sonar: ~/.sonar/cache  # Caching SonarCloud artifacts will speed up your build
+      services:
+          docker:
+            memory: 2048       
       steps:
       - step: &build-test-sonarcloud
               name: Build, test and analyze on SonarCloud
@@ -12,7 +15,7 @@ definitions:
               - node #  See https://confluence.atlassian.com/bitbucket/caching-dependencies-895552876.html
               - sonar
               script:
-             
+
               - pipe: sonarsource/sonarcloud-scan:1.0.1
       - step: &check-quality-gate-sonarcloud
               name: Check the Quality Gate on SonarCloud
@@ -20,6 +23,7 @@ definitions:
               - pipe: sonarsource/sonarcloud-quality-gate:0.1.3
 
 pipelines:                 #More info here: https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html
+
   branches:
     master:
       - step: *build-test-sonarcloud
